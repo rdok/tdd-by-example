@@ -28,23 +28,16 @@ class Dollar
     }
 
     /**
-     * @param $amount
+     * @param $multiplier
+     * @return $this
      */
-    public function times($amount)
+    public function times($multiplier)
     {
-        $this->amount = $this->amount * $amount;
+        return new Dollar($this->amount * $multiplier);
     }
 
     public function equals(Dollar $dollar)
     {
-        return $this->amount() === $dollar->amount();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function amount()
-    {
-        return $this->amount;
+        return $this->amount === $dollar->amount;
     }
 }

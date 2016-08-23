@@ -15,13 +15,11 @@ class DollarTest extends PHPUnit_Framework_TestCase
      * @param $times
      * @param $expected
      */
-    public function multiplies_dollars($amount, $times, $expected)
+    public function single_multiplication($amount, $times, $expected)
     {
         $five = new Dollar($amount);
 
-        $five->times($times);
-
-        $this->assertSame($expected, $five->amount());
+        $this->assertEquals(new Dollar($expected), $five->times($times));
     }
 
     public function multiplicationDollarDataProvider()
@@ -33,13 +31,20 @@ class DollarTest extends PHPUnit_Framework_TestCase
         ];
     }
 
+    /** @test */
+    public function trailing_multiplications(){
+        $five = new Dollar(5);
+        $this->assertEquals(new Dollar(10), $five->times(2));
+        $this->assertEquals(new Dollar(15), $five->times(3));
+    }
+
     /** @test
      * @param $expectedBoolean
      * @param $firstDollarAmount
      * @param $secondDollarAmount
      * @dataProvider equalityDollarDataProvider
      */
-    public function two_dollar_object_are_equal_when_they_have_the_same_amount(
+    public function two_dollar_objects_are_equal_when_they_have_the_same_amount(
         $expectedBoolean,
         $firstDollarAmount,
         $secondDollarAmount
