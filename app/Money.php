@@ -28,11 +28,11 @@ class Money
      */
     public function times($multiplier)
     {
-        return new Money($this->amount * $multiplier);
+        return new $this($this->amount * $multiplier);
     }
 
-    public function equals(Money $franc)
+    public function equals(Money $money)
     {
-        return $this->amount === $franc->amount;
+        return $this->amount === $money->amount && get_class($this) === get_class($money);
     }
 }

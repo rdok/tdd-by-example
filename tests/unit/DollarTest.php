@@ -1,6 +1,7 @@
 <?php
 
 use App\Dollar;
+use App\Franc;
 
 /**
  * @author Rizart Dokollari <r.dokollari@gmail.com>
@@ -37,8 +38,8 @@ class DollarTest extends PHPUnit_Framework_TestCase
     public function trailing_multiplications()
     {
         $five = new Dollar(5);
-        $this->assertTrue( (new Dollar(10))->equals($five->times(2)));
-        $this->assertTrue( (new Dollar(15))->equals($five->times(3)));
+        $this->assertTrue((new Dollar(10))->equals($five->times(2)));
+        $this->assertTrue((new Dollar(15))->equals($five->times(3)));
     }
 
     /** @test
@@ -64,5 +65,13 @@ class DollarTest extends PHPUnit_Framework_TestCase
             [true, 5, 5],
             [false, 5, 6],
         ];
+    }
+
+    /** @test */
+    public function equality_with_franc()
+    {
+        $this->assertFalse((new Dollar(5))->equals(new Franc(5)));
+
+        $this->assertFalse((new Franc(5))->equals(new Dollar(5)));
     }
 }
