@@ -11,31 +11,34 @@ class DollarTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider multiplicationDollarDataProvider
      * @test
+     * @param $condition
      * @param $amount
      * @param $times
      * @param $expected
      */
-    public function single_multiplication($amount, $times, $expected)
+    public function single_multiplication($condition, $amount, $times, $expected)
     {
         $five = new Dollar($amount);
 
-        $this->assertEquals(new Dollar($expected), $five->times($times));
+        $this->assertEquals($condition, (new Dollar($expected))->equals($five->times($times)));
     }
 
     public function multiplicationDollarDataProvider()
     {
         return [
-            [2, 5, 10],
-            [5, 9, 45],
-            [50, 90, 4500],
+            [true, 2, 5, 10],
+            [true, 5, 9, 45],
+            [true, 50, 90, 4500],
+            [false, 5, 90, 40],
         ];
     }
 
     /** @test */
-    public function trailing_multiplications(){
+    public function trailing_multiplications()
+    {
         $five = new Dollar(5);
-        $this->assertEquals(new Dollar(10), $five->times(2));
-        $this->assertEquals(new Dollar(15), $five->times(3));
+        $this->assertTrue( (new Dollar(10))->equals($five->times(2)));
+        $this->assertTrue( (new Dollar(15))->equals($five->times(3)));
     }
 
     /** @test

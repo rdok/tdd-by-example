@@ -6,10 +6,11 @@
 
 namespace App;
 
+
 /**
- * Class Dollar
+ * Class Frank
  * @package App
  */
-class Dollar extends Money
+class Franc extends Money
 {
 }
