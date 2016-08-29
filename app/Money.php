@@ -6,7 +6,7 @@
 
 namespace App;
 
-class Money
+class Money implements Expression
 {
     /**
      * @var int
@@ -51,10 +51,13 @@ class Money
         return new $this($this->amount * $multiplier, $this->currency);
     }
 
-    public function equals(Money $money)
+    /**
+     * @param Money $money
+     * @return Sum
+     */
+    public function plus(Money $money)
     {
-        return $this->amount === $money->amount && get_class($this) === get_class($money)
-        && $this->currency === $money->currency;
+        return new Sum($this, $money);
     }
 
     /**
@@ -71,5 +74,19 @@ class Money
     public function getCurrency()
     {
         return $this->currency;
+    }
+
+    public function equals(Money $money)
+    {
+        return $this->amount === $money->amount && $this->currency === $money->currency;
+    }
+
+    /**
+     * @param $currency
+     * @return $this
+     */
+    public function reduce($currency)
+    {
+        return $this;
     }
 }
