@@ -13,8 +13,9 @@ namespace App;
 interface Expression
 {
     /**
+     * @param Bank $bank
      * @param $currency
      * @return Money
      */
-    public function reduce($currency);
+    public function reduce(Bank $bank, $currency);
 }

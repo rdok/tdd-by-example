@@ -56,7 +56,7 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(Money::dollar(10)->equals($reducedMoney));
     }
-    
+
     /** @test */
     public function plus_returns_sum()
     {
@@ -77,13 +77,38 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(Money::dollar(7)->equals($result));
     }
-    
+
     /** @test */
     public function reduce_money()
     {
-        $bank =  new Bank();
+        $bank = new Bank();
         $result = $bank->reduce(Money::dollar(1), 'USD');
 
         $this->assertTrue(Money::dollar(1)->equals($result));
+    }
+
+    /** @test */
+    public function reduce_money_different_currency()
+    {
+        $bank = new Bank();
+        $bank->addRate('CHF', 'USD', 2);
+        $expectedDollars = $bank->reduce(Money::franc(2), 'USD');
+
+        $this->assertTrue(Money::dollar(1)->equals($expectedDollars));
+    }
+    
+    /** @test */
+    public function array_equals()
+    {
+        $currenciesList1 = ['abc'];
+        $currenciesList2 = ['abc'];
+
+        $this->assertEquals($currenciesList1, $currenciesList2);
+    }
+
+    /** @test */
+    public function identity_rate()
+    {
+        $this->assertEquals(1, (new Bank())->rate('USD', 'USD'));
     }
 }

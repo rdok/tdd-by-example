@@ -23,7 +23,7 @@ class Sum implements Expression
         $this->addend = $addend;
     }
 
-    public function reduce($currency)
+    public function reduce(Bank $bank, $currency)
     {
         $amount = $this->augend->getAmount() + $this->addend->getAmount();
 
