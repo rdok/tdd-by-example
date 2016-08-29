@@ -18,4 +18,10 @@ interface Expression
      * @return Money
      */
     public function reduce(Bank $bank, $currency);
+
+    /**
+     * @param Expression $addend
+     * @return mixed
+     */
+    public function plus(Expression $addend);
 }

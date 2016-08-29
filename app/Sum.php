@@ -14,10 +14,10 @@ class Sum implements Expression
 
     /**
      * Sum constructor.
-     * @param Money $augend
-     * @param Money $addend
+     * @param Expression $augend
+     * @param Expression $addend
      */
-    public function __construct(Money $augend, Money $addend)
+    public function __construct(Expression $augend, Expression $addend)
     {
         $this->augend = $augend;
         $this->addend = $addend;
@@ -25,8 +25,18 @@ class Sum implements Expression
 
     public function reduce(Bank $bank, $currency)
     {
-        $amount = $this->augend->getAmount() + $this->addend->getAmount();
+        $amount = $this->augend->reduce($bank, $currency)->getAmount()
+            + $this->addend->reduce($bank, $currency)->getAmount();
 
         return new Money($amount, $currency);
+    }
+
+    /**
+     * @param Expression $addend
+     * @return mixed
+     */
+    public function plus(Expression $addend)
+    {
+        return null;
     }
 }

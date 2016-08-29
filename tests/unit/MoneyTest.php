@@ -96,7 +96,7 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(Money::dollar(1)->equals($expectedDollars));
     }
-    
+
     /** @test */
     public function array_equals()
     {
@@ -110,5 +110,17 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     public function identity_rate()
     {
         $this->assertEquals(1, (new Bank())->rate('USD', 'USD'));
+    }
+
+    /** @test */
+    public function mixed_addition()
+    {
+        $fiveBucks = Money::dollar(5);
+        $tenFranc = Money::franc(10);
+        $bank = new Bank();
+        $bank->addRate('CHF', 'USD', 2);
+        $result = $bank->reduce($fiveBucks->plus($tenFranc), 'USD');
+
+        $this->assertTrue(Money::dollar(10)->equals($result));
     }
 }
