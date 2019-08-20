@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Unit;
+
 use App\Bank;
 use App\Expression;
 use App\Money;
