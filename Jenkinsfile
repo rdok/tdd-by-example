@@ -8,7 +8,10 @@ pipeline {
     }
     stages{
         stage('Build') {
-            steps { sh 'docker run --rm -v $PWD:/app composer install' }
+            steps {
+                sh 'docker run --rm -v $PWD:/app composer install'
+                sh 'docker run --rm -v $PWD:/app composer dumpautoload'
+             }
         }
         stage('Test') {
             steps { sh 'docker run --rm -v $PWD:/app -w /app php:7.2-cli ./vendor/bin/phpunit' }
@@ -16,7 +19,7 @@ pipeline {
     }
     post {
         failure {
-            emailext body: "Failure: ${err} <br/><br/> Console output at $BUILD_URL.", 
+            emailext body: "Failure -- Console output at $BUILD_URL.",
                 subject: 'Failure: $BUILD_DISPLAY_NAME | $JOB_BASE_NAME', 
                 to: "${AUTHOR_EMAIL}"
         }
