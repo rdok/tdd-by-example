@@ -4,20 +4,15 @@ namespace App\Ch1_MultiCurrencyMoney;
 
 class Dollar
 {
-    private $amount;
+    public $amount;
 
     public function __construct($amount)
     {
         $this->amount = $amount;
     }
 
-    public function times($number)
+    public function times($times)
     {
-        $this->amount = $this->amount * $number;
-    }
-
-    public function amount()
-    {
-        return $this->amount;
+        $this->amount *= $times;
     }
 }

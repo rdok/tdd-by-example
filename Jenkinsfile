@@ -8,11 +8,7 @@ pipeline {
     }
     stages{
         stage('Build') {
-            steps {
-                sh 'docker run --rm -v $PWD:/app composer install'
-                sh 'docker run --rm -v $PWD:/app composer dumpautoload'
-             }
-        }
+            steps { sh 'docker run --rm -v $PWD:/app composer install' } }
         stage('Test') {
             steps { sh 'docker run --rm -v $PWD:/app -w /app php:7.2-cli ./vendor/bin/phpunit' }
         }
